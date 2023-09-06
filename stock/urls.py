@@ -5,8 +5,8 @@ from rest_framework import routers
 
 
 router=routers.DefaultRouter()
-router.register("purchase",PurchaseView)
-router.register("firms/<int:pk>",FirmView)
+router.register("purchases",PurchaseView)
+router.register("firms",FirmView)
 router.register("categorys",CategoryView)
 router.register("sales",SalesView)
 router.register("brands",BrandView)
@@ -14,5 +14,5 @@ router.register("products",ProductView)
 
 urlpatterns = [
     path('', include(router.urls)),
-
+    # path('purchases/<int:pk>/update/', PurchaseView.as_view({'put': 'update_purchase'}), name='purchase-update'),
 ]

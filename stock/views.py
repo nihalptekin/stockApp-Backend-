@@ -2,9 +2,11 @@ from django.shortcuts import render
 from .models import *
 from .serializers import PurschaseSerializer, SaleSerializer, FirmSerializer, BrandSerializer, ProductSerializer, CategorySerializer
 from rest_framework import viewsets
+from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser,IsAuthenticated
 # from .permissions import IsAdminOrReadOnly
 from datetime import datetime,date
+
 
 # Create your views here.
 class PurchaseView(viewsets.ModelViewSet):
@@ -12,13 +14,22 @@ class PurchaseView(viewsets.ModelViewSet):
     serializer_class=PurschaseSerializer
     # permission_classes= [IsAdminUser]  
     # permission_classes= [IsAdminOrReadOnly] 
-    # 
+    
     def purchases(request):
         purchases=Purchase.objects.all()
         context={
         'purchases':purchases
     }
         return render(request, context) 
+    
+
+    # def update_purchase(self, request, pk=None):
+    #     purchase = self.get_object()
+    #     serializer = PurschaseSerializer(purchase, data=request.data, partial=True)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=400)
    
 class SalesView(viewsets.ModelViewSet):
     queryset=Sale.objects.all()
@@ -33,7 +44,7 @@ class SalesView(viewsets.ModelViewSet):
     }
         return render(request, context)
     
-    
+
     
 class FirmView(viewsets.ModelViewSet):
     queryset=Firm.objects.all()
@@ -41,8 +52,8 @@ class FirmView(viewsets.ModelViewSet):
     # permission_classes= [IsAdminUser]  
     # permission_classes= [IsAdminOrReadOnly] 
     # 
-    def firms(request, pk):
-        firms=Firm.objects.all(id=pk)
+    def firms(request):
+        firms=Firm.objects.all()
         context={
         'firms':firms
     }

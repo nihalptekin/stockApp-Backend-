@@ -32,7 +32,7 @@ urlpatterns = [
     
     #my urls
     path('user/', include('user.urls')),
-    path('', include('stock.urls')),
+    path('stock/', include('stock.urls')),
 ]
 
 from django.conf import settings
