@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    'django_filters',
     #myApps,
     'user',
     'stock',
@@ -132,7 +133,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 LOGGING = { 
     "version": 1, 
     # is set to True then all loggers from the default configuration will be disabled. 
@@ -181,14 +181,13 @@ LOGGING = {
     }, 
 }
 
-
-
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ]
+
 }
+
 REST_AUTH = {
     'TOKEN_SERIALIZER': 'user.serializers.CustomTokenSerializer',
 }
