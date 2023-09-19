@@ -5,7 +5,7 @@ from rest_framework import routers
 
 
 router=routers.DefaultRouter()
-router.register("purchases",PurchaseView)
+router.register("purchases",PurchasesView)
 router.register("firms",FirmView)
 router.register("categories",CategoryView)
 router.register("sales",SalesView)

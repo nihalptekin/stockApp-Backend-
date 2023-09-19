@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
-class PurschaseSerializer(serializers.ModelSerializer):  
+class PurchaseSerializer(serializers.ModelSerializer):  
     user=serializers.StringRelatedField() 
     firm=serializers.StringRelatedField()
     brand=serializers.StringRelatedField()
@@ -10,7 +10,7 @@ class PurschaseSerializer(serializers.ModelSerializer):
     brand_id=serializers.IntegerField()
     product_id=serializers.IntegerField()
     class Meta:
-        model=Purchase
+        model=Purchases
         fields=(
             "user",
             "firm",
@@ -38,7 +38,7 @@ class BrandSerializer(serializers.ModelSerializer):
 class SaleSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model=Sale
+        model=Sales
         fields="__all__"
 
      #!modelde tanimladigimiz price totali yoruma aldigim icin read only olmasini istedigim kodu da purchases kismina yazdim. buna artik gerek.   
@@ -46,7 +46,7 @@ class SaleSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     #categoride yer alanlarin kac tane ürünü ildugunu say. mesela electronik kategorisinde kac tane ürün var onu saymasi icn get_product_count'u kullandik.
-    get_product_count=serializers.SerializerMethodField()
+    product_count=serializers.SerializerMethodField()
     class Meta:
         model=Category
         fields=(

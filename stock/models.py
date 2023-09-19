@@ -46,7 +46,7 @@ class Firm(models.Model):
     def __str__(self):
         return f"{self.name}"
     
-class Purchase(FixFields):
+class Purchases(FixFields):
     #normalde Null daha mantikli. models.SET_NULL
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     firm = models.ForeignKey(Firm, on_delete=models.CASCADE,related_name="firm_purchase")
@@ -65,7 +65,7 @@ class Purchase(FixFields):
     #     self.price_total = self.quantity * self.price
     #     super(Purchase, self).save(*args, **kwargs)
 
-class Sale(FixFields):
+class Sales(FixFields):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name="brand_sales", null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="p_sales")
@@ -80,7 +80,7 @@ class Sale(FixFields):
         # price_total hesaplamasını burada yapabilirsiniz
         self.price_total = self.quantity * self.price
         print(self.price_total)
-        super(Sale, self).save(*args, **kwargs)
+        super(Sales, self).save(*args, **kwargs)
 
 
 
