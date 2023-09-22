@@ -21,8 +21,8 @@ from .serializers import(
     BrandSerializer,
     ProductSerializer,
     FirmSerializer,
-    SaleSerializer,
-    PurchaseSerializer
+    PurchasesSerializer,
+    SalesSerializer,
     
 )
 # Create your views here.
@@ -88,7 +88,7 @@ class FirmView(ModelViewSet):
 class PurchasesView(ModelViewSet):
     
     queryset=Purchases.objects.all()
-    serializer_class= PurchaseSerializer
+    serializer_class= PurchasesSerializer
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -143,7 +143,7 @@ class PurchasesView(ModelViewSet):
 
 class SalesView(ModelViewSet):
     queryset = Sales.objects.all()
-    serializer_class = SaleSerializer
+    serializer_class = SalesSerializer
     # filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     # search_fields = ['brand']
     # filterset_fields = ['product', 'brand']

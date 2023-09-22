@@ -6,18 +6,11 @@ from django.utils import timezone
 
 # Create your models here.
 class FixFields(models.Model):
-    created = models.DateTimeField(auto_now=True)
+    created=models.DateTimeField(auto_now=True)
     updated=models.DateTimeField(auto_now=True)
      #!  eger abstract =True yazmaysak yeni model olusturur. Bunu istemiyoruz
     class Meta:
         abstract=True
-
-
-class Category(models.Model):
-    name=models.CharField(max_length=30)
-
-    def __str__(self):
-        return f"{self.name}"
 
 class Brand(models.Model):
     name=models.CharField(max_length=30)
@@ -25,10 +18,17 @@ class Brand(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+    
+class Category(models.Model):
+    name=models.CharField(max_length=30)
+
+
+    def __str__(self):
+        return f"{self.name}"
      
 class Product(FixFields):
     name=models.CharField(max_length=30)
-    category=models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
+    category=models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products", null=True)
     brand=models.ForeignKey(Brand, on_delete=models.CASCADE,related_name="b_products", null=True)
     stock=models.SmallIntegerField(blank=True, default=0)
     # created=models.DateTimeField(auto_created=True)
@@ -36,6 +36,7 @@ class Product(FixFields):
 
     def __str__(self):
         return f"{self.name} - {self.brand}"
+    
     
 class Firm(models.Model):
     name=models.CharField(max_length=30)
@@ -61,9 +62,9 @@ class Purchases(FixFields):
   
   #!price total asagidaki gibi hesaplanabilir ama bu kez farkli bir yöntem denemek icin signals.py'de kullandik
     # def save(self, *args, **kwargs):
-    #     # price_total hesaplamasını burada yapabilirsiniz
-    #     self.price_total = self.quantity * self.price
-    #     super(Purchase, self).save(*args, **kwargs)
+    #      # price_total hesaplamasını burada yapabilirsiniz
+    #      self.price_total = self.quantity * self.price
+    #      super(Purchases, self).save(*args, **kwargs)
 
 class Sales(FixFields):
     user=models.ForeignKey(User, on_delete=models.CASCADE)

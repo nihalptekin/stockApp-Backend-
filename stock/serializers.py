@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
-class PurchaseSerializer(serializers.ModelSerializer):  
+class PurchasesSerializer(serializers.ModelSerializer):  
     user=serializers.StringRelatedField() 
     firm=serializers.StringRelatedField()
     brand=serializers.StringRelatedField()
@@ -9,9 +9,10 @@ class PurchaseSerializer(serializers.ModelSerializer):
     firm_id=serializers.IntegerField()
     brand_id=serializers.IntegerField()
     product_id=serializers.IntegerField()
+
     class Meta:
         model=Purchases
-        fields=(
+        fields=("id",
             "user",
             "firm",
             "firm_id",
@@ -35,28 +36,31 @@ class BrandSerializer(serializers.ModelSerializer):
         model=Brand
         fields="__all__"
 
-class SaleSerializer(serializers.ModelSerializer):
+class SalesSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=Sales
         fields="__all__"
 
      #!modelde tanimladigimiz price totali yoruma aldigim icin read only olmasini istedigim kodu da purchases kismina yazdim. buna artik gerek.   
-    # price_total=serializers.DecimalField(read_only=True, max_digits=10, decimal_places=2,)
+    price_total=serializers.DecimalField(read_only=True, max_digits=10, decimal_places=2,)
 
 class CategorySerializer(serializers.ModelSerializer):
     #categoride yer alanlarin kac tane ürünü ildugunu say. mesela electronik kategorisinde kac tane ürün var onu saymasi icn get_product_count'u kullandik.
     product_count=serializers.SerializerMethodField()
+    
     class Meta:
         model=Category
         fields=(
             "id",
             "name",
-            "product_count")
-
+            "product_count",
+            )
+        
     def get_product_count(self, obj):
         return obj.product.count()
-        # return Product.objects.filter(category_id=obj_id).count()
+       #  return Product.objects.filter(category_id=obj_id).count()
+
 
 class ProductSerializer(serializers.ModelSerializer):
     category=serializers.StringRelatedField()
@@ -66,7 +70,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Product
-        fields=(
+        fields=("id",
             "name",
             "stock",
             "category",
