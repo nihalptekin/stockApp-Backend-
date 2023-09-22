@@ -55,7 +55,7 @@ class Purchases(FixFields):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_purchase")
     quantity = models.SmallIntegerField()
     price = models.DecimalField(max_digits=10, validators=[MinValueValidator(0)], decimal_places=2)  # max_digits ve decimal_places değerlerini gerektiğine göre ayarlayın
-    price_total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # max_digits ve decimal_places değerlerini gerektiğine göre ayarlayın
+    price_total=models.DecimalField(blank=True, max_digits=8,validators=[MinValueValidator(0)],decimal_places=2) # max_digits ve decimal_places değerlerini gerektiğine göre ayarlayın
 
     def __str__(self):
         return f"{self.user} - {self.firm} - {self.product}"
