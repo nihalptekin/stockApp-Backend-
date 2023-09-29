@@ -4,9 +4,9 @@ from .models import Purchases,Sales
 
 #* signal kullanınca admin etanıt
 @receiver(pre_save, sender=Purchases)
+@receiver(pre_save, sender=Sales)
 def calculate_total_price(sender, instance, **kwargs):
      instance.price_total=instance.quantity*instance.price
 
-@receiver(pre_save, sender=Sales)
-def calculate_total_price(sender, instance, **kwargs):
-    instance.price_total = instance.quantity * instance.price         
+
+      

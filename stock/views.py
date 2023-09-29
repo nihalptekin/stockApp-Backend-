@@ -46,8 +46,6 @@ class CategoryView(ModelViewSet):
         # parametre vermezseniz category ler gelir
         return super().get_serializer_class()
 
-
-
 # class CategoryProductView(ModelViewSet):
     
 #     queryset=Category.objects.all()
@@ -95,7 +93,7 @@ class PurchasesView(ModelViewSet):
         ## add quantity to product stock field 
         purchase=request.data
         product=Product.objects.get(id=purchase['product_id'])
-        product.stock+=purchase['quantity']
+        product.stock+= int(purchase['quantity'])
         product.save()
 
         #######
@@ -119,7 +117,7 @@ class PurchasesView(ModelViewSet):
         # buradaki instance son yapılan alım
         # buradaki purchase güncel / olması istenen alıma ait veriler
 
-        product.stock+=purchase['quantity'] -instance.quantity
+        product.stock += purchase['quantity']- int(instance.quantity)
 
         #stock ta 10 vardı += 
         # alım da 10 geldi
